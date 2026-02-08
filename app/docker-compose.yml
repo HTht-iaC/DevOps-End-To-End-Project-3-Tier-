@@ -1,0 +1,48 @@
+version: "3.8"
+services:
+   backend:
+         build: ./backend
+         ports:
+           - "8234:80"
+         environment:
+            DB_HOST: ${DB_HOST} 
+            DB_NAME: ${DB_NAME}
+            DB_USER: ${DB_USER}
+            DB_PASS: ${DB_PASS}
+         depends_on:
+           - dbdbdb
+         networks:
+           - dbbacknetwork
+           - frontendbackend 
+   dbdbdb:
+         image: postgres:15
+         environment:
+           POSTGRES_DB: ${POSTGRES_DB}
+           POSTGRES_USER: ${POSTGRES_USER}
+           POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+         volumes:
+            - postgres_data:/var/lib/postgresql/data
+         networks:
+            - dbbacknetwork
+         healthcheck:    
+            test: ["CMD-SHELL", "pg_isready -U dbdbdb -d dbdbdb"]
+            interval: 5s
+            timeout: 5s
+            retries: 5
+   frontend:
+         build: ./frontend
+         ports: 
+              - "8080:80"
+         depends_on:
+              - backend 
+         networks:
+              - frontendbackend
+networks:
+  frontendbackend:
+    driver: bridge
+  dbbacknetwork:
+    driver: bridge 
+
+volumes:
+  postgres_data:
+

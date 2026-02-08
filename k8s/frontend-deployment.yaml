@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+   name: frontend-deployment
+   namespace: namespace
+spec:
+   replicas: 3 
+   selector:
+      matchLabels:
+         app: frontend 
+   template:
+     metadata:
+       labels:
+          app: frontend 
+     spec:
+        containers:
+           - name: frontendcontainer
+             image: 141005622229.dkr.ecr.us-east-1.amazonaws.com/prj-front-image:v1
+             imagePullPolicy: Always
+             ports:
+                - containerPort: 80
+      

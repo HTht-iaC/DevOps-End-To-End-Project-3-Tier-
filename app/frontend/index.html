@@ -1,0 +1,16 @@
+<!doctype html>
+<html>
+<head><meta charset="utf-8"><title>3-Tier Demo</title></head>
+<body>
+<h1>3-Tier App</h1>
+<button onclick="ping()">Ping Backend</button>
+<pre id="out"></pre>
+<script>
+async function ping() {
+  const res = await fetch('http://af25c3fe6641b4f32af106ff3c4778d7-224164981.us-east-1.elb.amazonaws.com/api');
+  const data = await res.json();
+  document.getElementById('out').innerText = JSON.stringify(data, null, 2);
+}
+</script>
+</body>
+</html>

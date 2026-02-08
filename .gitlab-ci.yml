@@ -1,0 +1,43 @@
+stages:
+  - build_push
+  - deploy
+
+variables:
+  AWS_REGION: "us-east-1"
+  AWS_ACCOUNT: "141005622229"
+  ECR_FRONTEND: "141005622229.dkr.ecr.us-east-1.amazonaws.com/prj-front-image"
+  ECR_BACKEND: "141005622229.dkr.ecr.us-east-1.amazonaws.com/prj-back-image"
+  EKS_CLUSTER_NAME: "huhhuh"
+  KUBE_NAMESPACE: "namespace"
+
+before_script:
+  - aws ecr get-login-password --region $AWS_REGION | docker login --username AWS --password-stdin ${AWS_ACCOUNT}.dkr.ecr.${AWS_REGION}.amazonaws.com
+
+build_and_push_images:
+  stage: build_push
+  tags: 
+     - gitlabproject
+  script:
+    - cd app/backend
+    - docker build -t backend:latest .
+    - docker tag backend:latest $ECR_BACKEND:latest
+    - docker push $ECR_BACKEND:latest
+    - cd ../..
+    - cd app/frontend
+    - docker build -t frontend:latest .
+    - docker tag frontend:latest $ECR_FRONTEND:latest
+    - docker push $ECR_FRONTEND:latest
+
+deploy_to_eks:
+  stage: deploy
+  tags: 
+      - gitlabproject
+
+  script:
+    - aws eks update-kubeconfig --name ${EKS_CLUSTER_NAME} --region ${AWS_REGION}
+    - kubectl apply -f k8s/namespace.yaml || echo "NSSS"  
+    - kubectl -n ${KUBE_NAMESPACE} apply -f k8s/backend-deployment.yaml
+    - kubectl -n ${KUBE_NAMESPACE} apply -f k8s/frontend-deployment.yaml
+    - kubectl -n ${KUBE_NAMESPACE} set image deployment/backend backendcontainer=${ECR_BACKEND}:latest
+    - kubectl -n ${KUBE_NAMESPACE} set image deployment/frontend-deployment frontendcontainer=${ECR_FRONTEND}:latest
+    - kubectl -n ${KUBE_NAMESPACE} apply -f k8s/servicebackend.yaml -f k8s/servicefrontend.yaml
