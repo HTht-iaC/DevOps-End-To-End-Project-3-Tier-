@@ -16,38 +16,6 @@ The frontend provides a **"Ping Backend"** button that triggers the backend to c
 
 ├── app<img width="468" height="826" alt="Screenshot (220)" src="https://github.com/user-attachments/assets/90b80c5f-d4b7-4a45-b093-3544016e8d3b" />
 
-│   ├── backend
-│   │   ├── app.py
-│   │   ├── Dockerfile
-│   │   └── requirements.txt
-│   ├── docker-compose.yml
-│   └── frontend
-│       ├── Dockerfile
-│       └── index.html
-├── htht
-├── k8s
-│   ├── backend-deployment.yaml
-│   ├── frontend-deployment.yaml
-│   ├── namespace.yaml
-│   ├── servicebackend.yaml
-│   └── servicefrontend.yaml
-├── README.md
-├── scripts
-│   ├── apply-infra.sh
-│   └── cleanup.sh
-└── terraform
-    ├── database.tf
-    ├── ec2-gitlabrunner.tf
-    ├── ecr.tf
-    ├── eks.tf
-    ├── iam.tf
-    ├── outputs.tf
-    ├── provider.tf
-    ├── scg.tf
-    ├── terraform.tfstate
-    ├── terraform.tfstate.backup
-    ├── variables.tf
-    └── vpc.tf
 
 ---
 
