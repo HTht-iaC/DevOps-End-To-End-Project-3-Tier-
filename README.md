@@ -1,7 +1,6 @@
 # 3-Tier Web Application Demo
 
-**Author:** Mohamed Hashem DevOps - Cloud  
-**GitLab Mirror:** This repository is mirrored from GitLab for CI/CD purposes.  
+**Author:** Mohamed Hashem (DevOps - Cloud)    
 
 ---
 
@@ -15,7 +14,8 @@ The frontend provides a **"Ping Backend"** button that triggers the backend to c
 
 ## Project Tree
 
-├── app
+├── app<img width="468" height="826" alt="Screenshot (220)" src="https://github.com/user-attachments/assets/90b80c5f-d4b7-4a45-b093-3544016e8d3b" />
+
 │   ├── backend
 │   │   ├── app.py
 │   │   ├── Dockerfile
