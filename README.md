@@ -12,6 +12,10 @@ The frontend provides a **"Ping Backend"** button that triggers the backend to c
 
 ---
 
+## Project Architecture
+<img width="842" height="1264" alt="End To End DevOps Arch" src="https://github.com/user-attachments/assets/f6435677-d0d5-4835-90a8-6d3193ebc342" />
+
+
 ## Project Tree
 
 ├── app<img width="468" height="826" alt="Screenshot (220)" src="https://github.com/user-attachments/assets/90b80c5f-d4b7-4a45-b093-3544016e8d3b" />
